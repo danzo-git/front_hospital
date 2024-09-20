@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hospitalfront/HomePage.dart';
-import 'package:hospitalfront/Hospital.dart';
-import 'RegistrationForm.dart';
+import 'package:hospitalfront/Vue/HomePage.dart';
+import 'package:hospitalfront/Vue/Hospital.dart';
+import 'Vue/RegistrationForm.dart';
 import 'package:http/http.dart' as http;
 void main() {
   runApp(const MyApp());

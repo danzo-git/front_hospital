@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:hospitalfront/Hospital.dart';
+import 'package:hospitalfront/Vue/Hospital.dart';
 import 'package:hospitalfront/Menu.dart';
-import 'package:hospitalfront/RdvPage.dart';
+import 'package:hospitalfront/Vue/RdvPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -29,20 +29,20 @@ class MyApp extends StatelessWidget {
 Future<Map<String, dynamic>> getUserInfo() async {
   final prefs = await SharedPreferences.getInstance();
   final String? token = prefs.getString('token');
-  
+   print(token);
   if (token == null) {
     throw Exception('No token found');
   }
 
   final response = await http.get(
-    Uri.parse('http://10.0.2.2:8000/api/patients/{id}'),
+    Uri.parse('http://10.0.2.2:8000/api/me'),
     headers: {
       'Authorization': 'Bearer $token',
+       'Content-Type': 'application/json',
     },
   );
 
   if (response.statusCode == 200) {
-    print(token);
     return json.decode(response.body);
   } else {
     // Gérer l'erreur de récupération des informations de l'utilisateur

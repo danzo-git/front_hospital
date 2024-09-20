@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:hospitalfront/Connexion.dart';
-import 'package:hospitalfront/PatientData.dart';
+import 'package:hospitalfront/Controller/RegistrationController.dart';
+import 'package:hospitalfront/Vue/Connexion.dart';
+import 'package:hospitalfront/Model/PatientData.dart';
 import 'package:http/http.dart' as http;
 
 class RegistrationForm extends StatefulWidget {
@@ -30,23 +31,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
   
   
 
-  Future<http.Response> createPatient(PatientData patient) async {
-    final response = await http.post(
-      Uri.parse('http://10.0.2.2:8000/api/patients'),
-      headers: <String, String>{
-        'Content-Type': 'application/ld+json',
-      },
-      body: jsonEncode(patient.toJson()),
-    );
-
-    if (response.statusCode == 201) {
-      // Si la requête a réussi et les données ont été insérées
-      return response;
-    } else {
-      // Si la requête a échoué
-      throw Exception('Échec de la création de l\'hôpital');
-    }
-  }
+  @override
+  final Registrationcontroller _registrationcontroller= new Registrationcontroller();
 
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -77,7 +63,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       );
 
       // Appelle la fonction createPatient pour envoyer les données à l'API
-      createPatient(newPatient).then((response) {
+      _registrationcontroller.createPatient(newPatient).then((response) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Inscription réussie!')),
