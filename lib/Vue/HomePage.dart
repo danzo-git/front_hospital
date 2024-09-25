@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:hospitalfront/Controller/PatientController.dart';
+import 'package:hospitalfront/Model/PatientData.dart';
 import 'package:hospitalfront/Vue/Hospital.dart';
 import 'package:hospitalfront/Menu.dart';
 import 'package:hospitalfront/Vue/RdvPage.dart';
@@ -26,29 +28,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Future<Map<String, dynamic>> getUserInfo() async {
-  final prefs = await SharedPreferences.getInstance();
-  final String? token = prefs.getString('token');
-   print(token);
-  if (token == null) {
-    throw Exception('No token found');
-  }
 
-  final response = await http.get(
-    Uri.parse('http://10.0.2.2:8000/api/me'),
-    headers: {
-      'Authorization': 'Bearer $token',
-       'Content-Type': 'application/json',
-    },
-  );
-
-  if (response.statusCode == 200) {
-    return json.decode(response.body);
-  } else {
-    // Gérer l'erreur de récupération des informations de l'utilisateur
-    throw Exception('Failed to load user info');
-  }
-}
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -58,21 +38,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<Map<String, dynamic>> userInfo;
-
-  @override
-  void initState() {
-    super.initState();
-    userInfo = getUserInfo();
-    print(userInfo);
-  }
+  
+ final PatientController _patientController = PatientController();
+ 
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: FutureBuilder<Map<String, dynamic>>(
-          future: userInfo,
+        title: FutureBuilder<PatientData?>(
+          future:_patientController.fetchUser(),
           
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -80,7 +56,7 @@ class _HomePageState extends State<HomePage> {
             } else if (snapshot.hasError) {
               return const Text('Bienvenue');
             } else if (snapshot.hasData) {
-              final name = snapshot.data?['name'] ?? 'User';
+              final name = snapshot.data?.name ?? 'User';
               return Text('Bienvenue $name', style: const TextStyle(color: Colors.black),);
             } else {
               return const Text('Bienvenue');
@@ -169,7 +145,7 @@ class _HomePageState extends State<HomePage> {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.blueAccent,
+          color: const Color.fromARGB(255, 59, 169, 107),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(

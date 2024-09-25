@@ -39,9 +39,9 @@ class ConnexionController {
         // Store the token in SharedPreferences for future use
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
-
+      print(token);
         // Navigate to the home page
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const HomePage()),
         );

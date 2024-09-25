@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hospitalfront/Vue/HomePage.dart';
 import 'package:hospitalfront/Vue/Hospital.dart';
+import 'package:hospitalfront/Vue/SignInSignUpScreen.dart';
 import 'Vue/RegistrationForm.dart';
 import 'package:http/http.dart' as http;
 void main() {
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.red,
       ),
-      home:   RegistrationForm(),
+      home:  SignInSignUpScreen(),
+      //  RegistrationForm(),
     );
   }
 }
