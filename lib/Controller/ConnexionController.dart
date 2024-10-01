@@ -13,15 +13,23 @@ class ConnexionController {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-     
+       if (email == null || password == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Email et mot de passe ne peuvent pas être vides')),
+        );
+        return;
+      }
+      
       final response = await http.post(
         Uri.parse('http://10.0.2.2:8000/api/login_check'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
+         
+         
         body: jsonEncode(<String, String>{
-          'email': email!,
-          'password': password!,
+          'email': email,
+          'password': password,
         }),
       );
 

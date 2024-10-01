@@ -188,15 +188,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 onPressed: _submitForm,
                 child: const Text('Soumettre'),
               ),
-              const SizedBox(height: 100),
-              ElevatedButton(
-                  onPressed: () => {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Connexion()))
-                      },
-                  child: const Text("Connexion")),
+              
             ],
           ),
         ),

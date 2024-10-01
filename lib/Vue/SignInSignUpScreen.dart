@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hospitalfront/Vue/Connexion.dart';
+import 'package:hospitalfront/Vue/RegistrationForm.dart';
 
-void main() => runApp(HealthCareApp());
 
 class HealthCareApp extends StatelessWidget {
+  const HealthCareApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -11,13 +13,16 @@ class HealthCareApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: SignInSignUpScreen(),
+      home: const SignInSignUpScreen(),
     );
   }
 }
 
 class SignInSignUpScreen extends StatefulWidget {
+  const SignInSignUpScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _SignInSignUpScreenState createState() => _SignInSignUpScreenState();
 }
 
@@ -33,23 +38,23 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
+            const  Icon(
                 Icons.health_and_safety,
                 size: 100,
                 color: Colors.teal,
               ),
-              SizedBox(height: 20),
+            const  SizedBox(height: 20),
               Text(
                 isSignUp ? 'Create Your Account' : 'Welcome Back',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Colors.teal,
                 ),
               ),
-              SizedBox(height: 20),
-              if (isSignUp) SizedBox(height: 15),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
+              if (isSignUp) const SizedBox(height: 15),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
@@ -59,26 +64,28 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 100),
+                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 100),
                   backgroundColor: Colors.teal,
                 ),
                 child: Text(
                   isSignUp ? 'Sign Up' : 'Sign In',
-                  style: TextStyle(fontSize: 18),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextButton(
                 onPressed: () {
                   setState(() {
                     isSignUp = !isSignUp;
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const RegistrationForm()));
                   });
                 },
                 child: Text(
                   isSignUp
                       ? 'Already have an account? Sign In'
                       : 'Don\'t have an account? Sign Up',
-                  style: TextStyle(color: Colors.teal),
+                      
+                  style: const TextStyle(color: Colors.teal),
                 ),
               ),
             ],

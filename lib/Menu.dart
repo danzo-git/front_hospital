@@ -1,45 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hospitalfront/Controller/PatientController.dart';
+import 'package:hospitalfront/Vue/HomePage.dart';
 
- const drawerHeader = UserAccountsDrawerHeader(
-      accountName: Text('User Name'),
-      accountEmail: Text('user.name@email.com'),
+class Menu extends StatefulWidget {
+  final String userName;
+  final String userEmail;
+  final List<Widget>  ? otherAccountsPictures;
+
+  const Menu({Key? key, required this.userName, required this.userEmail,  this.otherAccountsPictures}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _MenuState();
+}
+
+class _MenuState extends State<Menu> {
+  @override
+  Widget build(BuildContext context) {
+    final PatientController patientController = PatientController();
+    final drawerHeader = UserAccountsDrawerHeader(
+      accountName: Text(widget.userName),
+      accountEmail: Text(widget.userEmail),
       currentAccountPicture: CircleAvatar(
         backgroundColor: Colors.white,
         child: FlutterLogo(size: 42.0),
       ),
-      otherAccountsPictures: <Widget>[
-        CircleAvatar(
-          backgroundColor: Colors.blue,
-          child: Text('A'),
-        ),
-        CircleAvatar(
-          backgroundColor: Colors.red,
-          child: Text('B'),
-        )
-      ],
+      otherAccountsPictures: widget.otherAccountsPictures,
     );
     final drawerItems = ListView(
       children: <Widget>[
         drawerHeader,
         ListTile(
-          title: const Text('To page 1'),
-          // onTap: () => Navigator.of(context).push(_NewPage(1)),
-        ),
+            title: const Text('Accueil'),
+            onTap: () {}),
         ListTile(
           title: const Text('To page 2'),
-          // onTap: () => Navigator.of(context).push(_NewPage(2)),
         ),
         ListTile(
-          title: const Text('other drawer item'),
+          title: const Text('Deconnexion'),
+          leading: Icon(Icons.exit_to_app),
           onTap: () {},
         ),
       ],
     );
 
-
-    
-
-Widget menu() {
-  return drawerItems;
+    return drawerItems;
+  }
 }

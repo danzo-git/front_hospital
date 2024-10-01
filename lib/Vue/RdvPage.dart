@@ -11,46 +11,41 @@ class RdvPage extends StatefulWidget {
 class _RdvPageState extends State<RdvPage> {
   @override
   Widget build(BuildContext context) {
-  
-
     Widget TextForm() {
       return ListView.builder(
           itemCount: 1,
           itemBuilder: (context, index) {
-            return  Column(
+            return Column(
               children: [
                 const SizedBox(height: 10),
                 TextFormField(
-                     textCapitalization: TextCapitalization.words,
-            decoration: const InputDecoration(
-              border: UnderlineInputBorder(),
-              filled: true,
-              icon: Icon(Icons.person),
-              hintText: 'What do people call you?',
-              labelText: 'Service a consulter *',
-                )
-              ),
-               const SizedBox(height: 10),
-                 TextFormField(
-                     textCapitalization: TextCapitalization.words,
-            decoration: const InputDecoration(
-              border: UnderlineInputBorder(),
-              filled: true,
-              icon: Icon(Icons.person),
-              hintText: 'Quelles hopitals souhaitez vous?',
-              labelText: 'Hopital a consulter *',
-                )
-              ),
-               TextFormField(
-                     textCapitalization: TextCapitalization.words,
-            decoration: const InputDecoration(
-              border: UnderlineInputBorder(),
-              filled: true,
-              icon: Icon(Icons.person),
-              hintText: 'numero de Telephone?',
-              labelText: 'Telephone *',
-                )
-              ),
+                    textCapitalization: TextCapitalization.words,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      filled: true,
+                      icon: Icon(Icons.person),
+                      hintText: 'What do people call you?',
+                      labelText: 'Service a consulter *',
+                    )),
+                const SizedBox(height: 10),
+                TextFormField(
+                    textCapitalization: TextCapitalization.words,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      filled: true,
+                      icon: Icon(Icons.person),
+                      hintText: 'Quelles hopitals souhaitez vous?',
+                      labelText: 'Hopital a consulter *',
+                    )),
+                TextFormField(
+                    textCapitalization: TextCapitalization.words,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      filled: true,
+                      icon: Icon(Icons.person),
+                      hintText: 'numero de Telephone?',
+                      labelText: 'Telephone *',
+                    )),
               ],
             );
           });
@@ -64,11 +59,14 @@ class _RdvPageState extends State<RdvPage> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body:  Center(
+      body: Center(
         child: TextForm(),
       ),
-      drawer: Drawer(
-        child: menu(),
+      drawer: const Drawer(
+        child: Menu(
+          userName: 'Dnazp',
+          userEmail: 'dddd',
+        ),
       ),
     );
   }
