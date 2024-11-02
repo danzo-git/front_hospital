@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:hospitalfront/Controller/PatientController.dart';
 import 'package:hospitalfront/Model/Doctor.dart';
 import 'package:hospitalfront/Model/PatientData.dart';
+import 'package:hospitalfront/Provider/UserProvider.dart';
 import 'package:hospitalfront/Vue/Hospital.dart';
 import 'package:hospitalfront/Menu.dart';
 import 'package:hospitalfront/Vue/RdvPage.dart';
 import 'package:hospitalfront/Vue/Component/DoctorCard.dart';
 import 'package:hospitalfront/Vue/Component/CategoryButton.dart';
 import 'package:hospitalfront/Controller/DoctorController.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,32 +28,46 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    final user = userProvider.user;
+
     return Scaffold(
       appBar: AppBar(
         title: FutureBuilder<PatientData?>(
           future: _patientController.fetchUser(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Text('Bienvenue');
-            } else if (snapshot.hasError) {
-              return const Text('Bienvenue');
+              return Text(
+                user != null ? 'Bienvenue ${user.name}' : 'Bienvenue',
+                style: const TextStyle(color: Colors.black),
+              );
             } else if (snapshot.hasData) {
-              name = snapshot.data?.name ?? 'User';
-              email = snapshot.data?.email ?? 'User';
+              name = snapshot.data?.name;
+              email = snapshot.data?.email;
               return Text(
                 'Bienvenue $name',
                 style: const TextStyle(color: Colors.black),
               );
+            } else if (user != null) {
+              name = user.name;
+              email = user.email;
+              return Text(
+                'Bienvenue ${user.name}',
+                style: const TextStyle(color: Colors.black),
+              );
             } else {
-              return const Text('Bienvenue');
+              return const Text(
+                'Bienvenue',
+                style: TextStyle(color: Colors.black),
+              );
             }
           },
         ),
       ),
       drawer: Drawer(
         child: Menu(
-          userName: name ?? 'user',
-          userEmail: email ?? 'user',
+          userName: name ?? user?.name ?? 'Utilisateur',
+          userEmail: email ?? user?.email ?? 'Email non disponible',
         ),
       ),
       body: Padding(
@@ -84,16 +101,16 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Exemple de changement d'état
-                        setState(() {
-                          selectedCategory =
-                              "Surgeon"; // Simple changement d'état
-                        });
-                      },
-                      child: const Text('Get Started'),
-                    ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     // Exemple de changement d'état
+                    //     setState(() {
+                    //       selectedCategory =
+                    //           "Surgeon"; // Simple changement d'état
+                    //     });
+                    //   },
+                    //   child: const Text('Get Started'),
+                    // ),
                   ],
                 ),
               ),
@@ -185,13 +202,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-    
-  
-
-
-
-
-
-  
-

@@ -4,8 +4,15 @@ import 'package:hospitalfront/Vue/Hospital.dart';
 import 'package:hospitalfront/Vue/SignInSignUpScreen.dart';
 import 'Vue/RegistrationForm.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:hospitalfront/Provider/UserProvider.dart';
 void main() {
-  runApp(const MyApp());
+   runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
