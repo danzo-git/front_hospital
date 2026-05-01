@@ -1,9 +1,13 @@
-# hospitalfront
+# 🏥 Front Hospital
 
-A new Flutter project.
+Application Flutter pour prise de rendez-vous médicaux avec interface mobile intuitive.
 
-## Getting Started
+**Technologies:** Dart • Flutter • Mobile
 
-This project is a starting point for a Flutter application.
+Application permettant aux patients de consulter les disponibilités médicales et réserver facilement leurs rendez-vous via leur téléphone.
 
-I'm trying to create an app for booking medical Rendez-vous 
+## Fonctionnalités
+- 📅 Consultation des horaires disponibles
+- 🔐 Authentification sécurisée des patients
+- 📞 Gestion des rendez-vous
+- 🎨 Interface intuitive et responsive
